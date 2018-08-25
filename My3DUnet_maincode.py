@@ -103,8 +103,8 @@ class My3DUnet():
         pool = self.conv3d_as_pool(conv_2,64,(3,3,3),(2,2,2))
         print("conv2 shape:", pool.shape)
 
-        conv_3 = self.Residual3d_x3(pool, 64, 3)
-        pool = self.conv3d_as_pool(conv_3,128,3,(2,2,2))
+        conv_3 = self.Residual3d_x3(pool, 64, (1,3,3))
+        pool = self.conv3d_as_pool(conv_3,128,(1,3,3),(2,2,2))
         print("conv3 shape:", pool.shape)
 
         # conv_4 = self.Residual3d_x3(pool, 128, (1,5,5))
@@ -123,7 +123,7 @@ class My3DUnet():
         # deconv_4 = self.deconv3d_x3(conv_4, bottom, 128, (1,3,3), (1, 2, 2))
         deconv_5 = self.deconv3d_x3(conv_5, bottom, 256, (1, 3, 3), (1, 2, 2))
         deconv_4 = self.deconv3d_x3(conv_4, deconv_5, 128, (1, 3, 3), (1, 2, 2))
-        deconv_3 = self.deconv3d_x3(conv_3, deconv_4, 64,3,(2,2,2))
+        deconv_3 = self.deconv3d_x3(conv_3, deconv_4, 64,(1,3,3),(2,2,2))
         deconv_2 = self.deconv3d_x3(conv_2, deconv_3, 32,(3,3,3),(2,2,2))
         deconv_1 = self.deconv3d_x3(conv_1, deconv_2, 16, (3, 3, 3), (2, 2, 2))
 
